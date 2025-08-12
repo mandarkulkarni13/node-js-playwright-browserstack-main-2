@@ -13,11 +13,6 @@ pool:
 # IMPORTANT: Store these securely in Azure DevOps as secret pipeline variables.
 # Go to Pipelines -> Library -> Variable groups or edit your pipeline,
 # click on "Variables" tab, and add them as secret variables.
-variables:
-  # Replace 'YourBrowserStackUsername' with the actual variable name you define in Azure DevOps
-  BROWSERSTACK_USERNAME: $(BROWSERSTACK_USERNAME)
-  # Replace 'YourBrowserStackAccessKey' with the actual variable name you define in Azure DevOps
-  BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
 
 # Steps to execute in the pipeline
 steps:
