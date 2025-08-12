@@ -42,7 +42,7 @@ steps:
     # Ensure your playwright.config.js is correctly configured for BrowserStack.
     # The SDK automatically intercepts Playwright's launch calls and routes them to BrowserStack.
     echo "Running Playwright Tests on BrowserStack..."
-    npx browserstack-node-sdk playwright test --config=./playwright.config.js -- --browserstack.buildName "MySampleBuild"
+    npm run sample-test -- --browserstack.buildName "MySampleBuild"
   displayName: 'Run Playwright Tests on BrowserStack'
   # Set failOnStderr to true if you want the step to fail when any error output is detected
   failOnStderr: true 
