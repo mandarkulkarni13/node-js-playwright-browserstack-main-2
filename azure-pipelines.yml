@@ -1,5 +1,6 @@
-# Trigger the pipeline on pushes to the main branch
+# Azure Pipeline for Playwright tests on BrowserStack
 
+# Trigger the pipeline on pushes to the main branch
 trigger:
   - main
 
@@ -8,28 +9,47 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+# Define variables for BrowserStack credentials.
+# IMPORTANT: Store these securely in Azure DevOps as secret pipeline variables.
+# Go to Pipelines -> Library -> Variable groups or edit your pipeline,
+# click on "Variables" tab, and add them as secret variables.
+variables:
+  # Replace 'YourBrowserStackUsername' with the actual variable name you define in Azure DevOps
+  BROWSERSTACK_USERNAME: $(BROWSERSTACK_USERNAME)
+  # Replace 'YourBrowserStackAccessKey' with the actual variable name you define in Azure DevOps
+  BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
+
+# Steps to execute in the pipeline
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '18.x' # Specify the Node.js version suitable for your project
   displayName: 'Install Node.js'
-- task: BrowserStackConfig@0
-  inputs:
-    BrowserStackServiceEndPoint: 'Browserstack'
-- script: |
-    export BROWSERSTACK_USERNAME=$(BROWSERSTACK_USERNAME)
-    export BROWSERSTACK_ACCESS_KEY=$(BROWSERSTACK_ACCESS_KEY)
-    displayName: 'Setting environment variables'
 
-- script: printenv
-  displayName: 'Print all environment variables (Linux)'
-  
 - script: |
     npm install
   displayName: 'Install Dependencies'
 
+# The BrowserStack credentials (BROWSERSTACK_USERNAME and BROWSERSTACK_ACCESS_KEY)
+# MUST be exported as environment variables in the SAME script block
+# where the 'npx browserstack-node-sdk playwright test' command is executed.
+# Environment variables set in one 'script' task are NOT automatically propagated
+# to subsequent 'script' tasks.
 - script: |
+    echo "Setting BrowserStack credentials as environment variables..."
+    export BROWSERSTACK_USERNAME=$(BROWSERSTACK_USERNAME)
+    export BROWSERSTACK_ACCESS_KEY=$(BROWSERSTACK_ACCESS_KEY)
+    
+    # Optional: Print environment variables to verify (remove in production)
+    printenv | grep BROWSERSTACK_
+    
+    # Run Playwright tests using browserstack-node-sdk
+    # Ensure your playwright.config.js is correctly configured for BrowserStack.
+    # The SDK automatically intercepts Playwright's launch calls and routes them to BrowserStack.
+    echo "Running Playwright Tests on BrowserStack..."
     npx browserstack-node-sdk playwright test --config=./playwright.config.js
   displayName: 'Run Playwright Tests on BrowserStack'
   # Set failOnStderr to true if you want the step to fail when any error output is detected
   failOnStderr: true 
+
+
