@@ -29,13 +29,6 @@ steps:
   displayName: 'Install Dependencies'
 
 - script: |
-    # Set BrowserStack credentials as environment variables for the SDK
-    export BROWSERSTACK_USERNAME=$(BROWSERSTACK_USERNAME)
-    export BROWSERSTACK_ACCESS_KEY=$(BROWSERSTACK_ACCESS_KEY)
-    
-    # Run Playwright tests using browserstack-node-sdk
-    # Ensure your playwright.config.js is correctly configured for BrowserStack.
-    # The SDK automatically intercepts Playwright's launch calls and routes them to BrowserStack.
     npx browserstack-node-sdk playwright test --config=./playwright.config.js
   displayName: 'Run Playwright Tests on BrowserStack'
   # Set failOnStderr to true if you want the step to fail when any error output is detected
