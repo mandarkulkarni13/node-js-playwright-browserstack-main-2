@@ -16,6 +16,10 @@ steps:
 - task: BrowserStackConfig@0
   inputs:
     BrowserStackServiceEndPoint: 'Browserstack'
+- script: |
+    export BROWSERSTACK_USERNAME=$(BROWSERSTACK_USERNAME)
+    export BROWSERSTACK_ACCESS_KEY=$(BROWSERSTACK_ACCESS_KEY)
+    displayName: 'Setting environment variables'
 
 - script: printenv
   displayName: 'Print all environment variables (Linux)'
