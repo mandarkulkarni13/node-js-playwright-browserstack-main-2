@@ -17,7 +17,9 @@ steps:
   inputs:
     BrowserStackServiceEndPoint: 'Browserstack'
 
-
+- script: printenv
+  displayName: 'Print all environment variables (Linux)'
+  
 - script: |
     npm install
   displayName: 'Install Dependencies'
