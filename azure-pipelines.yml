@@ -1,4 +1,5 @@
 # Trigger the pipeline on pushes to the main branch
+
 trigger:
   - main
 
@@ -23,7 +24,9 @@ steps:
   inputs:
     versionSpec: '18.x' # Specify the Node.js version suitable for your project
   displayName: 'Install Node.js'
-
+- task: BrowserStackConfig@0
+  inputs:
+    BrowserStackServiceEndPoint: 'Browserstack'
 - script: |
     npm install
   displayName: 'Install Dependencies'
