@@ -51,7 +51,8 @@ steps:
   # Set failOnStderr to true if you want the step to fail when any error output is detected
   failOnStderr: true 
 
-
 - task: BrowserStackResults@1
   inputs:
+    condition: always()
+    continueOnError: true
     reportTimeout: '120'
