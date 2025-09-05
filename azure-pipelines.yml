@@ -7,7 +7,7 @@ trigger:
 # Define the agent pool where the pipeline will run
 # You can use 'ubuntu-latest', 'windows-latest', or 'macos-latest'
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 # Define variables for BrowserStack credentials.
 # IMPORTANT: Store these securely in Azure DevOps as secret pipeline variables.
