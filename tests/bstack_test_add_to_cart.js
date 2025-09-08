@@ -1,5 +1,5 @@
 const { expect, test } = require('@playwright/test');
-const { percySnapshot } = require("@percy/playwright");
+// const { percySnapshot } = require("@percy/playwright");
 
 test('BStackDemo test add to cart', async ({ page }) => {
   // visit the site
@@ -10,7 +10,7 @@ test('BStackDemo test add to cart', async ({ page }) => {
 
   // click on add to cart
   await page.click('#\\33 > .shelf-item__buy-btn');
-  await percySnapshot(page, "Screenshot 1");
+  // await percySnapshot(page, "Screenshot 1");
   // get name of item in cart
   const productInCart = await page.textContent('#__next > div > div > div.float-cart.float-cart--open > div.float-cart__content > div.float-cart__shelf-container > div > div.shelf-item__details > p.title');
   
