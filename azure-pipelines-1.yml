@@ -21,7 +21,6 @@ steps:
   inputs:
     BrowserStackServiceEndPoint: 'Browserstack'
 - script: |
-    Write-Host "Setting BrowserStack credentials as environment variables..."
     # $env:BROWSERSTACK_USERNAME = "$(BROWSERSTACK_USERNAME)"
     # $env:BROWSERSTACK_ACCESS_KEY = "$(BROWSERSTACK_ACCESS_KEY)"
     # $env:PERCY_TOKEN = "$(PERCY_TOKEN)"
