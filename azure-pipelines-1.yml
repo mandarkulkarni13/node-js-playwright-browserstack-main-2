@@ -21,16 +21,8 @@ steps:
   inputs:
     BrowserStackServiceEndPoint: 'Browserstack'
 - script: |
-    # $env:BROWSERSTACK_USERNAME = "$(BROWSERSTACK_USERNAME)"
-    # $env:BROWSERSTACK_ACCESS_KEY = "$(BROWSERSTACK_ACCESS_KEY)"
-    # $env:PERCY_TOKEN = "$(PERCY_TOKEN)"
-
-    # Optional: Print to verify (remove in production)
     echo "BROWSERSTACK_USERNAME = $env:BROWSERSTACK_USERNAME"
     echo "BROWSERSTACK_ACCESS_KEY = $env:BROWSERSTACK_ACCESS_KEY"
-
-    # Run Playwright tests on BrowserStack
-    Write-Host "Running Playwright Tests on BrowserStack..."
     npm run sample-test 
     # npx percy exec --verbose -- browserstack-node-sdk playwright test --config=./playwright.config.js 
   displayName: 'Run Playwright Tests on BrowserStack'
