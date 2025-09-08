@@ -1,0 +1,36 @@
+# Azure Pipeline for Playwright tests on BrowserStack (Windows agent)
+
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x' # Node.js version
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm install --save @percy/cli
+    npm install @percy/playwright
+  displayName: 'Install Dependencies'
+
+- script: |
+    Write-Host "Setting BrowserStack credentials as environment variables..."
+    $env:BROWSERSTACK_USERNAME = "$(BROWSERSTACK_USERNAME)"
+    $env:BROWSERSTACK_ACCESS_KEY = "$(BROWSERSTACK_ACCESS_KEY)"
+    $env:PERCY_TOKEN = "$(PERCY_TOKEN)"
+
+    # Optional: Print to verify (remove in production)
+    echo "BROWSERSTACK_USERNAME = $env:BROWSERSTACK_USERNAME"
+    echo "BROWSERSTACK_ACCESS_KEY = $env:BROWSERSTACK_ACCESS_KEY"
+
+    # Run Playwright tests on BrowserStack
+    Write-Host "Running Playwright Tests on BrowserStack..."
+    npm run sample-test -- --browserstack.buildName "MySampleBuild"
+    # npx percy exec --verbose -- browserstack-node-sdk playwright test --config=./playwright.config.js 
+  displayName: 'Run Playwright Tests on BrowserStack'
+  failOnStderr: true
